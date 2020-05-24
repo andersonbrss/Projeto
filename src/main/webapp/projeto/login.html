@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="login">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .usuario-conteudo {
+            background-color: #EEE;
+            padding: 20px 20px 10px 20px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+            <div class="usuario-conteudo" ng-controller="loginController">
+                <h3>Login</h3>
+                <form name="formulario" ng-submit="logar()">
+                    <div class="form-group">
+                        <label for="nome">Login*</label>
+                        <input type="text" class="form-control" id="nome" placeholder="Nome do usuário"
+                            ng-model="user.login" maxlength="20" required />
+                    </div>
+                    <div class="form-group has-feedback">
+                        <label for="senha">Senha*</label>
+                        <input type="password" class="form-control" id="senha" placeholder="Informe a senha do usuário"
+                            ng-model="user.senha" maxlength="10" required>
+                    </div>
+                  
+                    <button type="submit" class="btn btn-primary">Logar</button>
+                    <button type="reset" class="btn" >Cancelar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>

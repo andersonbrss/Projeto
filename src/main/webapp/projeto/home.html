@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html ng-app="cadastro">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cadastro de Operador</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .usuario-conteudo {
+            background-color: #EEE;
+            padding: 20px 20px 10px 20px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body >
+<nav class="navbar navbar-light bg-light">
+  <span class="navbar-brand">Projeto</span>
+  <a class="navbar-brand" href="home.html">Operador</a>
+  <a class="navbar-brand" href="pessoa.html">Pessoas</a>
+  <a class="navbar-brand" href="#" ng-controller="UsuarioController" ng-click="logout()">Sair</a>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+            <div class="usuario-conteudo" ng-controller="UsuarioController">
+                <h4>Cadastro de Operador</h4>
+                <form name="formulario" ng-submit="cadastrar()">
+                    <div class="form-group">
+                        <label for="nome">Nome*</label>
+                        <input type="text" class="form-control" id="nome" placeholder="Nome do usuário"
+                            ng-model="usuario.nome" maxlength="100" required />
+                    </div>
+                    <div class="form-group has-feedback">
+                        <label for="senha">Senha*</label>
+                        <input type="password" class="form-control" id="senha" placeholder="Informe a senha do usuário"
+                            ng-model="usuario.senha" ng-change="validarSenha()" maxlength="15" required>
+                            <span class="glyphicon form-control-feedback {{statusSenha.icone}}" aria-hidden="true"></span>
+                            <p class="help-block">{{statusSenha.mensagem}}</p>
+                    </div>
+                    <div ng-if="!usuario.id" class="form-group">
+                    	<label for="login">Login*</label>
+                    	<input type="text" class="form-control" id="login" placeholder="Login do usuário"
+                    		ng-model="usuario.login" maxlength="15" required />
+                    </div>
+                    <div class="form-group">
+                    	<label for="perfil">Perfil*</label>
+                    	<select class="form-control" id="perfil" ng-model="usuario.perfil" >
+                    		<option>GERENTE</option>
+                    		<option>ANALISTA</option>
+                    	</select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Gravar</button>
+                    <button type="reset" class="btn" ng-click="cancelar()">Cancelar</button>
+                </form>
+                <hr>
+                <h4>Lista de Usuários</h4>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nome</th>
+                        <th>Login</th>
+                        <th>Senha</th>
+                        <th>Perfil</th>
+                        <th>Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="usuario in usuarios">
+                        <td>{{usuario[0]}}</td>
+                        <td>{{usuario[3]}}</td>
+                        <th>{{usuario[2]}}</th>
+                        <td>{{usuario[5]}}</td>
+                        <td>{{usuario[4]}}</td>
+                        <td>
+                        	<button class="btn btn-primary" ng-click="selecionar(usuario)">editar</button>
+                        	<button class="btn btn-primary" ng-click="deletar(usuario)">excluir</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
