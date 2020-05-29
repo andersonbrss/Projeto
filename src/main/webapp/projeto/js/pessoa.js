@@ -34,7 +34,9 @@
                 		$scope.pessoas = (response.data);
                 	})
                 });
-                $scope.pessoa = {};
+                $scope.pessoa = {
+                	loginOperador: user.username	
+                };
             };
             
             $scope.selecionar = function( pessoa ) {
