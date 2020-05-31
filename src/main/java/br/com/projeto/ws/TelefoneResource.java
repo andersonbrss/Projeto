@@ -35,8 +35,8 @@ public class TelefoneResource {
 	@Path( "{id}" )
 	@GET
 	@Produces( MediaType.APPLICATION_JSON )
-	public Response getTelefone( @PathParam( "id" ) Long id ) {
-		return Response.ok( bean.telefonePorId( id ) ).build();
+	public Response getTelefonesPorIdPessoa( @PathParam( "id" ) Long id ) {
+		return Response.ok(  bean.telefonePorIdPessoa( id ) ).build();
 	}
 	
 	@POST

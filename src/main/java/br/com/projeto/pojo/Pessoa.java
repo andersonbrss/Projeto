@@ -3,10 +3,7 @@ package br.com.projeto.pojo;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedNativeQueries;
 import javax.persistence.NamedNativeQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -27,7 +23,8 @@ import br.com.projeto.enuns.TipoPessoa;
 @Table( name = "tb_pessoa")
 @NamedNativeQueries({
 	@NamedNativeQuery( name = "Pessoa.consultarTodos",
-			query = "SELECT * FROM tb_pessoa p ORDER BY p.nome")
+			query = "SELECT * FROM tb_pessoa p ORDER BY p.nome",
+		      resultClass = Pessoa.class)
 })
 public class Pessoa implements Serializable {
 	private static final long serialVersionUID = 300151065173278250L;
@@ -65,9 +62,6 @@ public class Pessoa implements Serializable {
 	@NotNull( message = "O campo tipo pessoa deve ser informado." )
 	private TipoPessoa tipoPessoa;
 
-	@OneToMany( cascade = CascadeType.ALL, mappedBy = "pessoa" )
-	private Set< Telefone > telefones = new HashSet<>();
-	
 	public Long getId() {
 		return id;
 	}
@@ -123,14 +117,6 @@ public class Pessoa implements Serializable {
 
 	public void setTipoPessoa(TipoPessoa tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
-	}
-
-	public Set<Telefone> getTelefones() {
-		return telefones;
-	}
-
-	public void setTelefones(Set<Telefone> telefones) {
-		this.telefones = telefones;
 	}
 
 	public String getLoginOperador() {

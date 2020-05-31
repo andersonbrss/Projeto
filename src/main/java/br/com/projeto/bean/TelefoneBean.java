@@ -10,9 +10,12 @@ public interface TelefoneBean {
 	
 	public void delete( Long id );
 	
+	public void deletePorIdPessoa( Long id );
+	
 	public Telefone telefonePorId( Long id );
 	
-	public List< Telefone > consultarTodos();
+	public List< Telefone > telefonePorIdPessoa( Long id );
 	
+	public List< Telefone > consultarTodos();
 	
 }

@@ -24,7 +24,12 @@ import br.com.projeto.enuns.TipoTelefone;
 @Table( name = "tb_telefone")
 @NamedNativeQueries({
 	@NamedNativeQuery( name = "Telefone.consultarTodos",
-			query = "SELECT * FROM tb_telefone p ORDER BY p.nome")
+			query = "SELECT * FROM tb_telefone tel ORDER BY tel.tipoTelefone"),
+	@NamedNativeQuery( name = "Telefone.consultarPorIdPessoa",
+			query = "SELECT * FROM tb_telefone tel WHERE tel.pessoa_id =:idpessoa ORDER BY tel.tipoTelefone",
+		      resultClass = Telefone.class),
+	@NamedNativeQuery( name = "Telefone.deletePorIdPessoa",
+			query = "DELETE FROM tb_telefone WHERE pessoa_id =:idpessoa")
 })
 public class Telefone implements Serializable {
 	private static final long serialVersionUID = 8373881596136175083L;
@@ -46,7 +51,7 @@ public class Telefone implements Serializable {
 	@NotNull( message = "O campo tipo telefone deve ser informado." )
 	private TipoTelefone tipoTelefone;
 	
-	@NotBlank
+	@NotBlank( message = "O login do operador não pode ser nulo" )
 	@Column( name = "login_operador" )
 	private String loginOperador;
 	

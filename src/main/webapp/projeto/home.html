@@ -72,11 +72,11 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="usuario in usuarios">
-                        <td>{{usuario[0]}}</td>
-                        <td>{{usuario[3]}}</td>
-                        <th>{{usuario[2]}}</th>
-                        <td>{{usuario[5]}}</td>
-                        <td>{{usuario[4]}}</td>
+                        <td>{{usuario.id}}</td>
+                        <td>{{usuario.nome}}</td>
+                        <td>{{usuario.login}}</td>
+                        <td>{{usuario.senha}}</td>
+                        <td>{{usuario.perfil}}</td>
                         <td>
                         	<button class="btn btn-primary" ng-click="selecionar(usuario)">editar</button>
                         	<button class="btn btn-primary" ng-click="deletar(usuario)">excluir</button>

@@ -42,4 +42,17 @@ public class TelefoneBeanImpl implements TelefoneBean {
 		return dao.consultarTodos();
 	}
 
+	@Override
+	public List<Telefone> telefonePorIdPessoa(Long id) {
+		TelefoneDAO dao = new TelefoneDAO( em );
+		
+		return dao.consultarPorIdPessoa( id );
+	}
+
+	@Override
+	public void deletePorIdPessoa(Long id) {
+		TelefoneDAO dao = new TelefoneDAO( em );
+		dao.deletePorIdPessoa( id );
+	}
+
 }

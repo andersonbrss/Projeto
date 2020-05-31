@@ -23,6 +23,9 @@
         	
         	$http.get( url ).then(function (response) {
         		$scope.pessoas = (response.data);
+        	}).catch( e => {
+        		if( e.status == 401 )
+        			$scope.logout();
         	});
             
             $scope.cadastrar = function () {
@@ -34,31 +37,22 @@
                 		$scope.pessoas = (response.data);
                 	})
                 });
-                $scope.pessoa = {
-                	loginOperador: user.username	
-                };
+                $scope.cancelar();
             };
             
             $scope.selecionar = function( pessoa ) {
-            	$scope.pessoa = { 
-            		id: pessoa[0],
-            		nome: pessoa[5],
-            		documento: pessoa[3],
-//            		dataNascimento: pessoa[2],
-            		nome_mae: pessoa[6],
-            		nome_pai: pessoa[7],
-            		tipoPessoa: pessoa[8],
-            		loginOperador: pessoa[4]
-            	};
+            	$scope.pessoa = pessoa;
+            	delete $scope.pessoa.dataNascimento;
             }
             
             $scope.cancelar = function() {
-            	$scope.pessoa = {};
-            	$scope.pessoa.id = '';
+            	$scope.pessoa = {
+                	loginOperador: user.username	
+                };
             }
 
             $scope.deletar = function( pessoa ) {
-            	$http.delete( url + '/'+ pessoa[0]).then(function (response) {
+            	$http.delete( url + '/'+ pessoa.id).then(function (response) {
             		alert('Registro excluido com sucesso');
             		$http.get( url ).then(function (response) {
                 		$scope.pessoas = response.data;
@@ -67,21 +61,48 @@
             }
             
             $scope.loadPessoa = function( pessoa ) {
-            	$scope.telefone.loginOperador = user.username;
-            	$scope.telefone.pessoa = pessoa[0];
+            	listarTelefones( pessoa.id );
+            	$scope.telefone.pessoa = pessoa;
+            }
+            
+            $scope.selecionarTelefone = function( telefone ) {
+            	$scope.telefone = telefone;
             }
             
             $scope.cadastrarTelefone = function() {
-            	console.log( $scope.telefone );
+            	if( !$scope.telefone.id )
+            		$scope.telefone.loginOperador = user.username;
+
+            	delete $scope.telefone.pessoa.dataNascimento;
             	let method = "post";
             	$scope.telefone.id ? method = "put" : method;
                 $http[method]( "/recursos/telefones" , $scope.telefone ).then(function (response) {
+                	listarTelefones( $scope.telefone.pessoa.id );
                 	alert("Registro cadastrado com sucesso.")
-                	$http.get( "/recursos/telefones" ).then(function (response) {
-                		$scope.telefone = (response.data);
-                	})
                 });
-                $scope.telefone = {};
+                $scope.cancelarTelefone();
+            }
+            
+            function listarTelefones( id ) {
+            	$http.get( "/recursos/telefones/" + id ).then(function (response) {
+            		$scope.telefones = (response.data);
+            	}).catch(function(e){
+            		console.log("err", e);
+            	});
+            }
+            
+            $scope.deletarTelefone = function ( telefone ) {
+            	$http.delete( "/recursos/telefones/" + telefone.id).then(function (response) {
+            		alert('Registro excluido com sucesso');
+            		listarTelefones( telefone.pessoa.id );
+                });
+            }
+            
+            $scope.cancelarTelefone = function () {
+            	$scope.telefone = {
+        			pessoa: $scope.telefone.pessoa,
+                	loginOperador: user.username
+            	}
             }
             
             $scope.logout = function () {

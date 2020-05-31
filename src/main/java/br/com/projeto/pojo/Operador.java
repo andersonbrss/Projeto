@@ -23,7 +23,8 @@ import br.com.projeto.enuns.Perfil;
 @Table( name = "tb_operador" )
 @NamedNativeQueries({
 	@NamedNativeQuery( name = "Operador.consultarTodos",
-			query = "SELECT * FROM tb_operador op where op.perfil != 'ADM' ORDER BY op.nome")
+			query = "SELECT * FROM tb_operador op where op.perfil != 'ADM' ORDER BY op.nome",
+		      resultClass = Operador.class)
 })
 public class Operador implements Serializable{
 	private static final long serialVersionUID = 4321617561618549618L;

@@ -14,7 +14,11 @@
         	
         	$http.get( url ).then(function (response) {
         		$scope.usuarios = (response.data);
+        	}).catch( e => {
+        		if( e.status == 401 )
+        			$scope.logout();
         	});
+        	
         	$scope.usuario = {
         		nome: '', senha: '', login: '', perfil: ''
         	};
@@ -22,28 +26,26 @@
             $scope.cadastrar = function () {
             	let method = "post";
             	$scope.usuario.id ? method = "put" : method;
+            	
                 $http[method]( url , $scope.usuario).then(function (response) {
                 	alert("Registro cadastrado com sucesso.")
                 	$http.get( url ).then(function (response) {
                 		$scope.usuarios = (response.data);
                 	})
-                });
-                $scope.usuario = {};
+                }).catch(function(e){
+                	console.log(e);
+                } );
+                $scope.cancelar();
                 $scope.statusPassword = {};
             };
             
             $scope.selecionar = function( usuario) {
-            	$scope.usuario = { 
-            		id: usuario[0],
-            		nome: usuario[3],
-            		login: usuario[2],
-            		perfil: usuario[4],
-            		senha: usuario[5]
-            	};
+            	$scope.usuario = usuario;
+            	delete $scope.usuario.data;
             }
 
             $scope.deletar = function( usuario ) {
-            	$http.delete( url + '/' + usuario[0]).then(function (response) {
+            	$http.delete( url + '/' + usuario.id).then(function (response) {
             		alert('Registro excluido com sucesso');
             		$http.get( url ).then(function (response) {
                 		$scope.usuarios = response.data;

@@ -43,4 +43,17 @@ private EntityManager em;
 		
 		return q.getResultList();
 	}
+	
+	public List< Telefone > consultarPorIdPessoa( Long id ) {
+		Query q = em.createNamedQuery( "Telefone.consultarPorIdPessoa" );
+		q.setParameter("idpessoa", id);
+		
+		return q.getResultList();
+	}
+	
+	public void deletePorIdPessoa( Long id ) {
+		Query q = em.createNamedQuery( "Telefone.deletePorIdPessoa" );
+		q.setParameter("idpessoa", id);
+		q.executeUpdate();
+	}
 }

@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import br.com.projeto.dao.PessoaDAO;
+import br.com.projeto.dao.TelefoneDAO;
 import br.com.projeto.pojo.Pessoa;
 
 @Stateless
@@ -24,6 +25,8 @@ public class PessoaBeanImpl implements PessoaBean {
 
 	@Override
 	public void delete(Long id) {
+		TelefoneDAO telDao = new TelefoneDAO( em );
+		telDao.deletePorIdPessoa(id);
 		PessoaDAO dao = new PessoaDAO( em );
 		dao.delete( id );
 	}

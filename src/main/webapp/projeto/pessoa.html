@@ -91,10 +91,10 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="pessoa in pessoas">
-                    	<td>{{pessoa[0]}}</td>
-                        <td>{{pessoa[5]}}</td>
-                        <td>{{pessoa[3]}}</td>
-                        <td>{{pessoa[8]}}</td>
+                    	<td>{{pessoa.id}}</td>
+                        <td>{{pessoa.nome}}</td>
+                        <td>{{pessoa.documento}}</td>
+                        <td>{{pessoa.tipoPessoa}}</td>
                         <td>
                         	<button class="btn btn-primary" ng-click="loadPessoa(pessoa)" data-toggle="modal" data-target="#visualizar">
 							  tel.
@@ -133,7 +133,7 @@
 	                    <div class="form-group">
 	                        <label for="ddd">DDD*</label>
 	                        <input type="text" class="form-control" id="ddd" placeholder="ddd do número de telefone."
-	                            ng-model="telefone.ddd" required />
+	                            ng-model="telefone.ddd" maxlength="3" required />
 	                    </div>
 	                    <div class="form-group">
 	                        <label for="numero">Número*</label>
@@ -151,9 +151,37 @@
 	                    </div>
 	                    
 	                    <button type="submit" class="btn btn-primary">Gravar</button>
-                    	<button type="reset" class="btn" ng-click="cancelar()">Cancelar</button>
+                    	<button type="reset" class="btn" ng-click="cancelarTelefone()">Cancelar</button>
 	             	</form>
                 </div>
+                
+                <hr>
+                <h4>Lista de Telefones</h4>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>DDD</th>
+                        <th>Numero</th>
+                        <th>Tipo</th>
+                        <th>Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="telefone in telefones">
+                    	<td>{{telefone.id}}</td>
+                        <td>{{telefone.ddd}}</td>
+                        <td>{{telefone.numero}}</td>
+                        <td>{{telefone.tipoTelefone}}</td>
+                        <td>
+                        	<button class="btn btn-primary" ng-click="selecionarTelefone(telefone)">editar</button>
+                        	<button class="btn btn-primary" ng-click="deletarTelefone(telefone)">excluir</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                
+                
       		</div>
       	</div>
       
